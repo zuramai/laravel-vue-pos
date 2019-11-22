@@ -1,0 +1,33 @@
+
+/* ==============
+    footer
+===================*/
+
+.footer {
+  background-color: $white;
+  font-size: 13px;
+  bottom: 0;
+  color: $dark;
+  text-align: center;
+  padding: 20px 0px;
+  position: absolute;
+  right: 0;
+  left: 240px;
+  transition: all 0.4s ease-in-out;
+}
+
+// enlarged
+
+#wrapper{
+  &.enlarged {
+    .footer {
+      left: 0;
+    }
+  }
+}
+
+@media (max-width:768px){
+  .footer{
+    left: 0px;
+  }
+}
