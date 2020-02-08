@@ -65,6 +65,7 @@
                                         <th>Jumlah</th>
                                         <th>Sisa Stok</th>
                                         <th>Harga</th>
+                                        <th>PPN</th>
                                         <th>Total Harga</th>
                                         <th></th>
                                     </tr>
@@ -80,7 +81,10 @@
                                             {{ product.stock }}
                                         </td>
                                         <td>
-                                            Rp {{ formatPrice(product.realPrice + (product.ppn/100 * product.realPrice)) }} <span class='text-success' v-if="product.discount !== null">DISKON!</span>
+                                            Rp {{ formatPrice(product.realPrice) }} <span class='text-success' v-if="product.discount !== null">DISKON!</span>
+                                        </td>
+                                        <td>
+                                            Rp {{ formatPrice(product.ppn/100 * product.realPrice) }} 
                                         </td>
                                         <td>
                                             Rp {{ formatPrice(product.price + (product.ppn/100 * product.price)) }}

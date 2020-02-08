@@ -104,6 +104,11 @@
                     <form action="" method='POST' enctype="multipart/form-data" @submit.prevent="addCategory">
                         
                         <div class="modal-body">
+                                <div class="alert alert-danger" v-if="errors.length >0" >
+                                    <ul>
+                                        <li v-for="error in errors" v-bind:key="error.id">{{ error[0] }}</li>
+                                    </ul>
+                                </div>
                                 <div class="form-group">
                                     <label for="">Nama Kategori: </label>
                                     <input type="text" name="name" class="form-control" v-model="name">
@@ -135,9 +140,15 @@
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    
                     <form action="" method='POST' enctype="multipart/form-data" @submit.prevent="updateCategory(edit.id)">
-                        
+
                         <div class="modal-body">
+                                <div class="alert alert-danger" v-if="errors.length > 0" >
+                                    <ul>
+                                        <li v-for="error in errors" v-bind:key="error.id">{{ error[0] }}</li>
+                                    </ul>
+                                </div>
                                 <div class="form-group">
                                     <label for="">Nama Kategori: </label>
                                     <input type="text" name="name" class="form-control" v-model="edit.name">
@@ -188,6 +199,7 @@ export default {
             description: '',
             categories: [],
             photo: '',
+            errors: [],
 
             addLoading: false,
             deleteLoading: false, 
@@ -231,12 +243,23 @@ export default {
                 .then(res => {
                     this.addLoading = false;
                     // console.log(res);
+                    this.errors = [];
                     Swal.fire(
                         'Sukses',
                         'Sukses tambah kategori',
                         'success'
                     );
                     this.displayData();
+                }).catch(error => {
+                    this.addLoading=false;
+                    console.log(error.response);
+                    let statusCode = error.response.status;
+                    if(statusCode == 500) {
+                        this.errors = {"error": "Terjadi kesalahan sistem."};
+                    }else if(statusCode == 422) {
+                        console.log(error.response.data)
+                        this.errors = error.response.data.errors;
+                    }
                 });
         },
 
@@ -273,6 +296,11 @@ export default {
                     
                     $('#modalEdit').modal('toggle');
                     this.displayData();
+                    Swal.fire(
+                        'Sukses',
+                        'Sukses edit kategori',
+                        'success'
+                    );
                 }).catch(err => console.log(err))
         },
 

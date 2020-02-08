@@ -37,6 +37,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'photo' => 'required',
+        ]);
         $name =  $request->name;
         $slug = str_slug($name,'-');
         $description = $request->description;
@@ -93,16 +98,25 @@ class CategoryController extends Controller
         $slug = str_slug($name);
 
 
-        $photo = $request->file('photo');
-        $image_name = $photo->getClientOriginalName();
-        $photo->move(public_path('/images/categories'), $image_name);
+        if($request->hasFile('photo')) {
+            $photo = $request->file('photo');
+            $image_name = $photo->getClientOriginalName();
+            $photo->move(public_path('/images/categories'), $image_name);
+    
+            Category::find($id)->update([
+                'name' => $name,
+                'description' => $description,
+                'slug' => $slug,
+                'image_name' => $image_name
+            ]);
+        }else{
+            Category::find($id)->update([
+                'name' => $name,
+                'description' => $description,
+                'slug' => $slug,
+            ]);
 
-        Category::find($id)->update([
-            'name' => $name,
-            'description' => $description,
-            'slug' => $slug,
-            'image_name' => $image_name
-        ]);
+        }
 
         return response(['success'=>true], 200);
     }

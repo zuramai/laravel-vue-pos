@@ -47,7 +47,8 @@ class TransactionController extends Controller
         foreach($r->cart as $data_cart) {
             $quantity = $data_cart['quantity'];
             $ppn = $data_cart['ppn'];
-            $ppnnya = ($data_cart['realPrice'] * $ppn/100) * $quantity;
+            $price = $data_cart['price'];
+            $ppnnya = ($data_cart['realPrice'] * $ppn/100);
             $realPrice = $data_cart['realPrice'] + $ppnnya;
 
             $subtotal = $realPrice * $quantity;
@@ -60,8 +61,9 @@ class TransactionController extends Controller
                 'subtotal' => $subtotal,
                 'ppn' => $ppnnya
             ]);
-        $totalPrice += $subtotal;
-        $totalPpn += $ppnnya;
+            
+            $totalPrice += $subtotal;
+            $totalPpn += $ppnnya;
         }
         Transaction::find($order->id)->update(['total' => $totalPrice, 'total_ppn' => $totalPpn]);
 
@@ -69,7 +71,7 @@ class TransactionController extends Controller
         $product->stock = $product->stock - $data_cart['quantity'];
         $product->save();
 
-        return response()->json(['status' => true, 'message' => '<b>Transaksi Sukses!</b> <br>Total Harga: <b>Rp'.number_format($totalPrice+$totalPpn)."</b><br>Jumlah Bayar: <b>Rp ".number_format($r->bayar)."</b><br>Kembalian: <b>Rp ".number_format($r->kembalian)."</b><br>Invoice: <a href='".url("transaksi/invoice/".$order->invoice)."'>Klik Disini</a>"]);
+        return response()->json(['status' => true, 'message' => '<b>Transaksi Sukses!</b> <br>Total Harga: <b>Rp'.number_format($totalPrice)."</b><br>Jumlah Bayar: <b>Rp ".number_format($r->bayar)."</b><br>Kembalian: <b>Rp ".number_format($r->kembalian)."</b><br>Invoice: <a href='".url("transaksi/invoice/".$order->invoice)."'>Klik Disini</a>"]);
     }
 
     public function history(Request $request) {

@@ -175,6 +175,11 @@ export default {
            axios.post('/api/v1/discount', form)
                 .then(res => {
                     console.log(res.data);
+                    Swal.fire(
+                        'Sukses',
+                        'Sukses Tambah Diskon!',
+                        'success'
+                    );
                 }).catch(err => {
                     this.errors = err.response.data.errors 
                     console.log(this.errors)

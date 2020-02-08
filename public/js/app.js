@@ -3516,6 +3516,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
@@ -3538,6 +3549,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       description: '',
       categories: [],
       photo: '',
+      errors: [],
       addLoading: false,
       deleteLoading: false,
       first_page: 1,
@@ -3584,9 +3596,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(function (res) {
         _this3.addLoading = false; // console.log(res);
 
+        _this3.errors = [];
         sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Sukses', 'Sukses tambah kategori', 'success');
 
         _this3.displayData();
+      })["catch"](function (error) {
+        _this3.addLoading = false;
+        console.log(error.response);
+        var statusCode = error.response.status;
+
+        if (statusCode == 500) {
+          _this3.errors = {
+            "error": "Terjadi kesalahan sistem."
+          };
+        } else if (statusCode == 422) {
+          console.log(error.response.data);
+          _this3.errors = error.response.data.errors;
+        }
       });
     },
     editCategory: function editCategory(id) {
@@ -3623,6 +3649,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         $('#modalEdit').modal('toggle');
 
         _this5.displayData();
+
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Sukses', 'Sukses edit kategori', 'success');
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -4364,6 +4392,7 @@ __webpack_require__.r(__webpack_exports__);
       form.append('amount', this.add.amount);
       axios.post('/api/v1/discount', form).then(function (res) {
         console.log(res.data);
+        sweetalert2__WEBPACK_IMPORTED_MODULE_0___default.a.fire('Sukses', 'Sukses Tambah Diskon!', 'success');
       })["catch"](function (err) {
         _this3.errors = err.response.data.errors;
         console.log(_this3.errors);
@@ -6131,6 +6160,10 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
 //
 //
 //
@@ -65613,6 +65646,20 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-body" }, [
+                    _vm.errors.length > 0
+                      ? _c("div", { staticClass: "alert alert-danger" }, [
+                          _c(
+                            "ul",
+                            _vm._l(_vm.errors, function(error) {
+                              return _c("li", { key: error.id }, [
+                                _vm._v(_vm._s(error[0]))
+                              ])
+                            }),
+                            0
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "" } }, [
                         _vm._v("Nama Kategori: ")
@@ -65760,6 +65807,20 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-body" }, [
+                    _vm.errors.length > 0
+                      ? _c("div", { staticClass: "alert alert-danger" }, [
+                          _c(
+                            "ul",
+                            _vm._l(_vm.errors, function(error) {
+                              return _c("li", { key: error.id }, [
+                                _vm._v(_vm._s(error[0]))
+                              ])
+                            }),
+                            0
+                          )
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", { attrs: { for: "" } }, [
                         _vm._v("Nama Kategori: ")
@@ -71623,12 +71684,7 @@ var render = function() {
                             _c("td", [
                               _vm._v(
                                 "\r\n                                            Rp " +
-                                  _vm._s(
-                                    _vm.formatPrice(
-                                      product.realPrice +
-                                        (product.ppn / 100) * product.realPrice
-                                    )
-                                  ) +
+                                  _vm._s(_vm.formatPrice(product.realPrice)) +
                                   " "
                               ),
                               product.discount !== null
@@ -71636,6 +71692,18 @@ var render = function() {
                                     _vm._v("DISKON!")
                                   ])
                                 : _vm._e()
+                            ]),
+                            _vm._v(" "),
+                            _c("td", [
+                              _vm._v(
+                                "\r\n                                            Rp " +
+                                  _vm._s(
+                                    _vm.formatPrice(
+                                      (product.ppn / 100) * product.realPrice
+                                    )
+                                  ) +
+                                  " \r\n                                        "
+                              )
                             ]),
                             _vm._v(" "),
                             _c("td", [
@@ -71983,6 +72051,8 @@ var staticRenderFns = [
         _c("th", [_vm._v("Sisa Stok")]),
         _vm._v(" "),
         _c("th", [_vm._v("Harga")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("PPN")]),
         _vm._v(" "),
         _c("th", [_vm._v("Total Harga")]),
         _vm._v(" "),
@@ -89272,8 +89342,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\laravue_pos\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\laravue_pos\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp2\htdocs\laravel\laravel-vue-pos\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp2\htdocs\laravel\laravel-vue-pos\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
