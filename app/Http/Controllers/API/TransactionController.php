@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Transaction;
 use App\Model\TransactionDetail;
+use App\Model\Product;
 use App\Http\Resources\TransactionCollection;
 use Ramsey\Uuid\Uuid;
 use Auth;
@@ -35,15 +36,19 @@ class TransactionController extends Controller
             'invoice' => Uuid::uuid4(),
             'user_id' => Auth::user()->id,
             'total' => 0,
+            'total_ppn' => 0,
             'bayar' => $r->bayar,
             'kembalian' => $r->kembalian,
             'payment_method_id' => $r->payment_method,
             'customer_id' => $r->customer,
         ]);
         $totalPrice = 0;
+        $totalPpn = 0;
         foreach($r->cart as $data_cart) {
             $quantity = $data_cart['quantity'];
-            $realPrice = $data_cart['realPrice'];
+            $ppn = $data_cart['ppn'];
+            $ppnnya = ($data_cart['realPrice'] * $ppn/100) * $quantity;
+            $realPrice = $data_cart['realPrice'] + $ppnnya;
 
             $subtotal = $realPrice * $quantity;
 
@@ -52,12 +57,19 @@ class TransactionController extends Controller
                 'product_id' => $data_cart['id'],
                 'quantity' => $data_cart['quantity'],
                 'price' => $realPrice,
-                'subtotal' => $subtotal
+                'subtotal' => $subtotal,
+                'ppn' => $ppnnya
             ]);
         $totalPrice += $subtotal;
+        $totalPpn += $ppnnya;
         }
-        Transaction::find($order->id)->update(['total' => $totalPrice]);
-        return response()->json(['status' => true, 'message' => 'Transaksi Sukses']);
+        Transaction::find($order->id)->update(['total' => $totalPrice, 'total_ppn' => $totalPpn]);
+
+        $product = Product::find($data_cart['id']);
+        $product->stock = $product->stock - $data_cart['quantity'];
+        $product->save();
+
+        return response()->json(['status' => true, 'message' => '<b>Transaksi Sukses!</b> <br>Total Harga: <b>Rp'.number_format($totalPrice+$totalPpn)."</b><br>Jumlah Bayar: <b>Rp ".number_format($r->bayar)."</b><br>Kembalian: <b>Rp ".number_format($r->kembalian)."</b><br>Invoice: <a href='".url("transaksi/invoice/".$order->invoice)."'>Klik Disini</a>"]);
     }
 
     public function history(Request $request) {
@@ -65,8 +77,13 @@ class TransactionController extends Controller
         return new TransactionCollection(Transaction::with(['details.product','customer'])->where('user_id',Auth::user()->id)->where('id','LIKE',"%$search%")->orderBy('id','desc')->paginate(10));
     }
 
+    public function allHistory(Request $request) {
+        $search = $request->get('search');
+        return new TransactionCollection(Transaction::with(['details.product','cashier','customer'])->where('id','LIKE',"%$search%")->orderBy('id','desc')->paginate(10));
+    }
+
     public function invoice(Request $r, $invoice_id) {
-        return Transaction::with(['details.product','customer'])->where('invoice',$invoice_id)->orderBy('id','desc')->first();
+        return Transaction::with(['details.product','customer','payment_method'])->where('invoice',$invoice_id)->orderBy('id','desc')->first();
     }
 
     public function chart() {

@@ -4,20 +4,21 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Customer;
-use App\Http\Resources\CustomerCollection;
-use Validator;
+use App\Model\Discount;
+use App\Model\Product;
 
-class CustomerController extends Controller
+class DiscountController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $r)
+    public function index()
     {
-        return new CustomerCollection(Customer::where('name','LIKE',"%$r->search%")->orderBy('id','DESC')->paginate(10));
+        $discounts = Discount::with('product')->orderBy('id','desc')->paginate(10);
+        return response()->json($discounts);
+
     }
 
     /**
@@ -38,38 +39,21 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'alamat' => 'required',
-            'phone' => 'required',
-            'provinsi' => 'required',
-            'kota' => 'required',
-            'email' => 'required|email',
-            'photo' => 'nullable'
+        $request->validate([
+            'product' => 'required|exists:products,code',
+            'amount' => 'required|gte:1'
         ]);
 
-        $customer = new Customer;
-        $customer->name = $request->name;
-        $customer->alamat = $request->alamat;
-        $customer->role = $request->role;
-        $customer->phone = $request->phone;
-        $customer->kota = $request->kota;
-        $customer->provinsi = $request->provinsi;
-        $customer->email = $request->email;
-        if($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $image_name = $photo->getClientOriginalName();
-            $photo->move(public_path('/images/customers'), $image_name);
-            $customer->image_name = $image_name;
-        }
+        $product_id = Product::where('code',$request->product)->first()->id;
 
-        $customer->save();
+        $discount = new Discount;
+        $discount->product_id = $product_id;
+        $discount->amount = $request->amount;
+        $discount->status = true;
+        $discount->save();
 
-        return response()->json(['status' => true]);
-    }
+        return response()->json(['status' => true, 'message' =>'Sukses Menambah Diskon!']);
 
-    public function all() {
-        return new CustomerCollection(Customer::orderBy('name','asc')->get());
     }
 
     /**
@@ -114,6 +98,9 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $discount = Discount::find($id);
+        $discount->delete();
+
+        return response()->json(['status' => true, 'message' => 'Sukses Hapus Data Diskon']);
     }
 }

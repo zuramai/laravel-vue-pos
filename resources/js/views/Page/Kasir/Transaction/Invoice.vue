@@ -43,7 +43,7 @@
                                                     <div class="invoice-title">
                                                         <h4 class="float-right font-16"><strong>Order # {{ data_order.id }}</strong></h4>
                                                         <h3 class="m-t-0">
-                                                            <img src="assets/images/logo_dark.png" alt="logo" height="28"/>
+                                                            <img src="/images/logo3.png" alt="logo" height="28"/>
                                                         </h3>
                                                     </div>
                                                     <hr>
@@ -59,19 +59,17 @@
                                                         <div class="col-6 text-right">
                                                             <address>
                                                                 <strong>Shipped To:</strong><br>
-                                                                Kenny Rigdon<br>
-                                                                1234 Main<br>
-                                                                Apt. 4B<br>
-                                                                Springfield, ST 54321
+                                                                {{ data_order.customer.name }}<br>
+                                                                {{data_order.customer.alamat}}<br>
+                                                                {{data_order.customer.kota}}, {{data_order.customer.provinsi}}
                                                             </address>
                                                         </div>
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-6 m-t-30">
                                                             <address>
-                                                                <strong>Payment Method:</strong><br>
-                                                                Visa ending **** 4242<br>
-                                                                jsmith@email.com
+                                                                <strong>Metode Pembayaran:</strong><br>
+                                                                {{ data_order.payment_method.name }} <br>
                                                             </address>
                                                         </div>
                                                         <div class="col-6 m-t-30 text-right">
@@ -106,9 +104,16 @@
                                                                     
                                                                     <tr v-for="order_detail in data_order.details" v-bind:key="order_detail.id">
                                                                         <td>{{order_detail.product.name}}</td>
-                                                                        <td class="text-center">Rp {{ numberFormat(order_detail.price) }}</td>
+                                                                        <td class="text-center">Rp {{ numberFormat(order_detail.price - order_detail.ppn) }}</td>
                                                                         <td class="text-center">{{ order_detail.quantity }}</td>
-                                                                        <td class="text-right">Rp {{ numberFormat(order_detail.subtotal)}}</td>
+                                                                        <td class="text-right">Rp {{ numberFormat(order_detail.subtotal - order_detail.ppn*order_detail.quantity)}}</td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td class="no-line"></td>
+                                                                        <td class="no-line"></td>
+                                                                        <td class="no-line text-center">
+                                                                            <strong>PPN</strong></td>
+                                                                        <td class="no-line text-right">Rp {{  numberFormat(totalPPN) }} </span></td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="thick-line"></td>
@@ -116,13 +121,6 @@
                                                                         <td class="thick-line text-center">
                                                                             <strong>Subtotal</strong></td>
                                                                         <td class="thick-line text-right">Rp {{numberFormat(data_order.total)}}</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td class="no-line"></td>
-                                                                        <td class="no-line"></td>
-                                                                        <td class="no-line text-center">
-                                                                            <strong>Shipping</strong></td>
-                                                                        <td class="no-line text-right">$15</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <td class="no-line"></td>
@@ -137,8 +135,7 @@
             
                                                             <div class="d-print-none mo-mt-2">
                                                                 <div class="float-right">
-                                                                    <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i></a>
-                                                                    <a href="#" class="btn btn-primary waves-effect waves-light">Send</a>
+                                                                    <a href="javascript:window.print()" class="btn btn-success waves-effect waves-light"><i class="fa fa-print"></i> Print</a>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -167,7 +164,18 @@ export default {
             invoice_id: '',
             order_detail: [],
             data_order: {},
+            total_ppn: '',
+        }
+    },
 
+    computed: {
+        totalPPN() {
+            let ppn = 0;
+            this.data_order.details.forEach(data => {
+                ppn += data.ppn * data.quantity
+            });
+
+            return ppn
         }
     },
 

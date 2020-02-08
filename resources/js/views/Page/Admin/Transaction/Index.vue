@@ -28,28 +28,32 @@
                         </div>
                         
                     </div>
-                        <div class="alert alert-success">
-                            <i class="fas fa-check-circle"></i> {!! session('success') !!}
-                        </div>
-                        <div class="alert alert-danger">
-                            <ul class='mb-0'>
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
                     <div class="table-responsive">
                         <table class="table table-hover table-lg" id='transaction-table'>
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Kasir</th>
+                                    <th>Customer</th>
                                     <th>Produk</th>
-                                    <th>Bayar</th>
-                                    <th>Kembali</th>
+                                    <th>Harga</th>
                                     <th>Tanggal</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
+                            <tbody>
+                               <tr v-for="data in transactions" :key="data.id">
+                                    <td>{{ data.id }}</td>
+                                    <td>{{ data.cashier.name }}</td>
+                                    <td>{{ data.customer.name }}</td>
+                                    <td><span v-for="(detail, index) in data.details" :key="index" v-if="index ==0">{{ detail.product.name }}</span> <span v-if="data.details.length > 1">dan {{ data.details.length - 1 }} lainnya</span></td>
+                                    <td>Rp {{ numberFormat(data.total) }}</td>
+                                    <td>{{ moment(data.created_at).format('DD MMMM YYYY') }}</td>
+                                    <td>
+                                        <router-link  :to="{ path: `/transaksi/invoice/${data.invoice}` }" class="btn btn-primary btn-sm">Invoice</router-link>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -66,18 +70,22 @@
 <script>
 export default {
     mounted() {
-
+        this.viewData();
     },
 
     data() {
         return {
             produk: [],
+            transactions: []
         }
     },
 
     methods: {
        viewData() {
-           axios.get();
+           axios.get("/api/v1/transaction/history/all")
+            .then(res => {
+                this.transactions = res.data.data
+            });
        },
     }
 }

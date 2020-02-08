@@ -143,7 +143,11 @@
                                     <label for="email">Harga</label>
                                     <input id="price" type="number" class="form-control"
                                         name="price" placeholder="Harga" v-model="add.price" >
-                           
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">PPN</label>
+                                    <input id="ppn" type="number" class="form-control"
+                                        name="ppn" placeholder="PPN (Dalam %)" v-model="add.ppn" >
                                 </div>
                                 <div class="form-group">
                                     <label for="">Gambar</label>
@@ -218,7 +222,11 @@
                                 <label for="email">Harga</label>
                                 <input id="price" type="number" class="form-control"
                                     name="price" placeholder="Harga" v-model="edit.price" >
-                        
+                            </div>
+                            <div class="form-group">
+                                <label for="email">PPN</label>
+                                <input id="price" type="number" class="form-control"
+                                    name="ppn" placeholder="Harga" v-model="edit.ppn" >
                             </div>
                             <div class="form-group">
                                 <label for="">Gambar</label>
@@ -268,6 +276,7 @@ export default {
                 description: '',
                 image_name: '',
                 photo: '',
+                ppn:'',
             },
             add: {
                 name: '',
@@ -277,6 +286,7 @@ export default {
                 category: '',
                 photo: '',
                 image_name: '',
+                ppn:'',
             },
             search: '',
             description: '',
@@ -313,6 +323,7 @@ export default {
             let code = this.add.code;
             let category = this.add.category;
             let price = this.add.price;
+            let ppn = this.add.ppn;
             let stock = this.add.stock;
             let photo = this.add.photo
 
@@ -322,6 +333,7 @@ export default {
             formData.append('code', code);
             formData.append('category', category);
             formData.append('price', price);
+            formData.append('ppn', ppn);
             formData.append('stock', stock);
             formData.append('photo', photo);
 

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyUsersTable extends Migration
+class ModiyDeletedAt extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class ModifyUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('username');
-            $table->text('address')->after('username');
-            $table->text('phone')->after('username');
+        Schema::table('products', function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -27,7 +25,7 @@ class ModifyUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('products', function (Blueprint $table) {
             //
         });
     }

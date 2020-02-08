@@ -43,7 +43,8 @@
                             <tbody>
                                 <tr v-for="data in transactions" :key="data.id">
                                     <td>{{ data.id }}</td>
-                                    <td>{{ data.details[0].product.name }} <span v-if="data.details.length > 1">dan {{ data.details.length - 1 }} lainnya</span></td>
+                                                                        <td><span v-for="(detail, index) in data.details" :key="index" v-if="index ==0">{{ detail.product.name }}</span> <span v-if="data.details.length > 1">dan {{ data.details.length - 1 }} lainnya</span></td>
+
                                     <td>{{ data.customer.name }}</td>
                                     <td>Rp {{ numberFormat(data.total) }}</td>
                                     <td>{{ moment(data.created_at).format('DD MMMM YYYY') }}</td>

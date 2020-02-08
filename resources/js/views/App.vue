@@ -29,7 +29,7 @@
                                     <router-link to="/transaksi/riwayat" class="waves-effect"><i class="dripicons-to-do"></i> <span> Riwayat Transaksi </span> </router-link>
                                 </li>
                         
-                            <li class="menu-title">Admin</li>
+                            <li class="menu-title" v-if="$auth.check('Admin')">Admin</li>
 
                             <li v-if="$auth.check('Admin')">
                                 <router-link to="/admin" class="waves-effect">
@@ -59,7 +59,11 @@
                             </li>
 
                             <li v-if="$auth.check('Admin')">
-                                <router-link to="/admin/report" class="waves-effect"><i class="dripicons-document-new"></i> <span> Laporan </span> </router-link>
+                                <router-link to="/admin/discount" class="waves-effect"><i class="dripicons-document-new"></i> <span> Diskon </span> </router-link>
+                            </li>
+
+                            <li v-if="$auth.check('Admin')">
+                                <router-link to="/admin/report" class="waves-effect"><i class="dripicons-document-new"></i><span> Laporan </span> </router-link>
                             </li>
 
 
@@ -89,7 +93,7 @@
                 </div> <!-- content -->
 
                 <footer class="footer" v-if="$route.meta.pageType != 'auth'">
-                    © 2019 Zinzer <span class="d-none d-md-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesdesign.</span>
+                    © 2019 <a href="https://zuramai.net">Zuramai Network</a> <span class="d-none d-md-inline-block"> - Crafted with <i class="mdi mdi-heart text-danger"></i> by Ahmad Saugi.</span>
                 </footer>
 
             </div>

@@ -87,6 +87,30 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Laporan Transaksi</td>
+                                        <td>
+                                            <button type="button" class='btn btn-primary' @click="downloadPDF('transactions')">PDF</button>
+                                            <button type="button" class='btn btn-success'>Excel</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Daftar Produk</td>
+                                        <td>
+                                            <button type="button" class='btn btn-primary' @click="downloadPDF('products')">PDF</button>
+                                            <button type="button" class='btn btn-success'>Excel</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Daftar Pengguna</td>
+                                        <td>
+                                            <button type="button" class='btn btn-primary' @click="downloadPDF('users')">PDF</button>
+                                            <button type="button" class='btn btn-success'>Excel</button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -169,6 +193,23 @@ export default {
                 hideHover: 'auto',
                 barColors: lineColors
             });
+        },
+
+        downloadPDF(cat) {
+            let endpoint = "";
+            if(cat == 'transactions') {
+                endpoint = "/api/v1/report/pdf_transaction";
+            }else if(cat == 'products') {
+                endpoint = "/api/v1/report/pdf_products";
+            } else {
+                endpoint = "/api/v1/report/pdf_users";
+            }
+
+            axios.get(endpoint)
+                .then(res => {
+                    // console.log(res);
+                    window.location = "/pdf/"+res.data.filename, '_blank';
+                });
         }
     }
 }

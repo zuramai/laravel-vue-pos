@@ -64,6 +64,7 @@ class ProductController extends Controller
         $product->category_id = $request->category;
         $product->slug = str_slug($request->name,'-');
         $product->price = $request->price;
+        $product->ppn = $request->ppn;
         $product->stock = $request->stock;
         $product->image_name = $image_name;
         $product->save();
@@ -75,7 +76,7 @@ class ProductController extends Controller
     public function search(Request $r) {
         $search = $r->get('search');
 
-        $products = Product::where('name','LIKE',"%$search%")->orWhere('code','LIKE',"%$search%")->orderBy('name','ASC')->limit(5)->get();
+        $products = Product::with('discount')->where('name','LIKE',"%$search%")->orWhere('code','LIKE',"%$search%")->orderBy('name','ASC')->limit(5)->get();
 
         return response()->json($products);
     }

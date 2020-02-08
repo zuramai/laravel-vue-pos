@@ -119,7 +119,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" :disabled="addLoading = true"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="addLoading == true"></span> Tambah</button>
+                            <button type="submit" class="btn btn-primary" :disabled="addLoading == true"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true" v-if="addLoading == true"></span> Tambah</button>
                         </div>
                     </form>
                 </div>

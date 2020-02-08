@@ -44,6 +44,8 @@ import AdminUsersDetail from './views/Page/Admin/Users/Detail.vue';
 
 import AdminCustomerIndex from './views/Page/Admin/Customer/Index.vue';
 
+import AdminDiscountIndex from './views/Page/Admin/Discount/Index.vue';
+
 import AdminCategoryIndex from './views/Page/Admin/Category/Index.vue';
 import AdminCategoryAdd from './views/Page/Admin/Category/Add.vue';
 import AdminCategoryEdit from './views/Page/Admin/Category/Edit.vue';
@@ -77,6 +79,7 @@ const router = new VueRouter({
         { path: '/transaksi', component: KasirTransactionIndex, meta: { auth:true }},
         { path: '/transaksi/riwayat', component: KasirTransactionHistory, meta: { auth:true }},
         { path: '/transaksi/invoice/:invoice_id', component: TransactionInvoice, meta: { auth:true }},
+        
         { path: '/admin', component: AdminHome, meta: { auth: true }, name: 'admin.dashboard'},
         { path: '/admin/transaksi', component: AdminTransactionIndex, meta: {auth:true }},
         { path: '/admin/transaksi/edit/:id', component: AdminTransactionEdit, meta: {auth:true }},
@@ -88,7 +91,9 @@ const router = new VueRouter({
         { path: '/admin/users/add', component: AdminUsersAdd, meta: {auth:true }},
 
         { path: '/admin/customer', component: AdminCustomerIndex, meta: {auth:true }},
-
+        
+        { path: '/admin/discount', component: AdminDiscountIndex, meta: { auth: true }},
+        
         { path: '/admin/category', component: AdminCategoryIndex, meta: {auth:true }},
         { path: '/admin/category/edit/:id', component: AdminCategoryEdit, meta: {auth:true }},
         { path: '/admin/category/add', component: AdminCategoryAdd, meta: { auth:true }},
@@ -103,13 +108,8 @@ const router = new VueRouter({
         { path: '/login', component: AuthLogin, meta: { auth: false, pageType: 'auth' } },
     ]
 })
-router.beforeEach((to, from, next) => {
-    $vs.loading();
-})
-router.beforeEach((to, from, next) => {
-    $vs.loading.close()
-})
 
+Vue.router = router
 
 Vue.use(VueAuth, auth)
 

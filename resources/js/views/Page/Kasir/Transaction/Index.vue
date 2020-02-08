@@ -46,13 +46,14 @@
         <div class="col-md-8">
             <div class="card m-b-30">
                 <div class="card-body">
+                    <div class="alert alert-success" v-if="successMsg !== ''" v-html="successMsg"></div>
                     <div class="row mb-3">
                         <div class="col-8">
                             <h4 class="mt-0 header-title">Daftar Pembelian</h4>
                         </div>
                     </div>
                     <div class="float-right mb-2">
-                        <h5>Total Harga: Rp <span id="total-price" data-value='0'>{{ formatPrice(totalPrice) }}</span></h5>
+                        <h5>Total Harga: <span id="rp">Rp <span id="total-price" data-value='0'>{{ formatPrice(totalPrice) }}</span></span></h5>
                     </div>
                     <form action="" method="post" id="form-transaction">
                         <div class="table-responsive">
@@ -62,6 +63,7 @@
                                         <th>No</th>
                                         <th>Nama Produk</th>
                                         <th>Jumlah</th>
+                                        <th>Sisa Stok</th>
                                         <th>Harga</th>
                                         <th>Total Harga</th>
                                         <th></th>
@@ -72,13 +74,16 @@
                                         <td class="product_id">{{ index+1 }}</td>
                                         <td><b>{{ product.code.toUpperCase() }}</b> - {{ product.name }}</td>
                                         <td>
-                                            <input type="number" class="form-control" @keyup="changeQuantity(index)" value="1">
+                                            <input type="number" class="form-control" @keyup="changeQuantity(index)" v-model="qty[index]" value="1">
                                         </td>
                                         <td>
-                                            Rp {{ formatPrice(product.realPrice) }}
+                                            {{ product.stock }}
                                         </td>
                                         <td>
-                                            Rp {{ formatPrice(product.price) }}
+                                            Rp {{ formatPrice(product.realPrice + (product.ppn/100 * product.realPrice)) }} <span class='text-success' v-if="product.discount !== null">DISKON!</span>
+                                        </td>
+                                        <td>
+                                            Rp {{ formatPrice(product.price + (product.ppn/100 * product.price)) }}
                                         </td>
                                         <td>
                                             <button type="button" @click="deleteCart(index)" class='btn btn-danger btn-sm'><i class="fas fa-trash"></i></button>
@@ -93,7 +98,7 @@
                                 <div class='col-md-6 offset-md-6'>
                                     <div class='form-group  mt-3'>
                                         <label>Nominal Bayar</label>
-                                        <input type='number' :class='{"form-control":true, "is-invalid": this.error}' id='nominal-bayar' name='nominal_bayar' @keyup='hitungKembalian()' v-model="bayar">
+                                        <input type='number' :class='{"form-control":true, "is-invalid": this.error}' id='nomi  nal-bayar' name='nominal_bayar' @keyup='hitungKembalian()' v-model="bayar">
                                         <div class="invalid-feedback" v-if="this.error">
                                             {{error}}
                                         </div>
@@ -156,7 +161,7 @@
 import Swal from 'sweetalert2'
 export default {
     mounted() {
-
+        $('.button-menu-mobile.open-left.waves-effect:not(.button-menu-mobile-topbar)').click()
     },
     
     
@@ -169,11 +174,13 @@ export default {
             kembalian: 0,
             bayar: 0,
             error: false,
-
+            successMsg: '',
 			customers: [],
 			customer: 1,
             payment_methods: [],
             payment_method: 1,
+
+            qty: [],
         }
     },
 
@@ -186,7 +193,6 @@ export default {
             }else{
                 axios.get('/api/v1/product/search', { params: { 'search': searchProduct } })
                     .then(res => {
-                        console.log(res.data);
                         this.productSearch = res.data;
                     });
             }
@@ -196,7 +202,9 @@ export default {
             let product_id = array.id;
             array.quantity = 1;
             array.realPrice = array.price;
-
+            
+            this.qty.push(1)
+            
             let obj = this.cart.find(o => o.id === array.id);
 
             if(obj !== undefined) {
@@ -210,11 +218,16 @@ export default {
         },
 
         changeQuantity(index) { 
-            let qty = event.target.value;
+            let qty = this.qty[index];
             let price = this.cart[index].realPrice;
-            this.cart[index].quantity = qty;
-            let newPrice = price * qty;
-            this.cart[index].price = newPrice;
+            let stock = this.cart[index].stock;
+            if(qty > stock) {
+                 this.qty[index] = stock;
+            }else{
+                this.cart[index].quantity = qty;
+                let newPrice = price * qty;
+                this.cart[index].price = newPrice;
+            }
 
             this.countTotalPrice();
         },
@@ -223,7 +236,7 @@ export default {
             this.totalPrice = 0;
             let totalPrice = 0;
             this.cart.forEach((data_cart, index) => {
-                let realPrice = parseInt(data_cart.realPrice);
+                let realPrice = parseInt(data_cart.realPrice + (data_cart.ppn/100 * data_cart.realPrice));
                 let quantity =  parseInt(data_cart.quantity);
 
 
@@ -237,6 +250,7 @@ export default {
 
         deleteCart(index) {
             this.cart.splice(index,1)
+            this.qty.splice(index, 1)
             this.countTotalPrice();
             console.log(this.cart);
         },
@@ -268,7 +282,8 @@ export default {
                             this.cart = [],
                             this.kembalian = 0;
                             this.totalPrice = 0;
-							this.bayar = 0;
+                            this.bayar = 0;
+                            this.successMsg = res.data.message;
 							
 							$('#keteranganModal').modal('toggle');
                     }
@@ -311,7 +326,7 @@ export default {
     }
 }
 </script>
-<style scoped>
+<style >
     .dropdown-search {
         background-color: #fdfdfd;
         border: 1px solid #eee;
@@ -341,5 +356,9 @@ export default {
         width: 40px;
         height: 40px;
         object-fit: cover
+    }
+
+    #rp {
+        color: #d35400
     }
 </style>

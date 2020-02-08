@@ -43,18 +43,18 @@ Route::prefix('v1')->group(function()  {
         
             Route::post('transaction/new', 'API\TransactionController@newTransaction');
             Route::get('transaction/history', 'API\TransactionController@history');
+            Route::get('transaction/history/all', 'API\TransactionController@allHistory');
             Route::get('transaction/chart', 'API\TransactionController@chart');
             Route::get('transaction/invoice/{invoice_id}', 'API\TransactionController@invoice');
             Route::resource('transaction', 'API\TransactionController'); 
 
+            Route::resource('discount', 'API\DiscountController');
+
             Route::resource('payment-method', 'API\PaymentMethodController');
             Route::get('/report', 'API\HomeController@report');
+            Route::get('/report/pdf_transaction', 'API\HomeController@pdf_transaction');
+            Route::get('/report/pdf_products', 'API\HomeController@pdf_products');
+            Route::get('/report/pdf_users', 'API\HomeController@pdf_users');
         });
     });
 });
-
-
-Route::get('siswa','API\SiswaController@index');
-Route::post('siswa','API\SiswaController@create');
-Route::put('siswa/{id}','API\SiswaController@update');
-Route::delete('siswa/{id}','API\SiswaController@delete');

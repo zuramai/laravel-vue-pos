@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ModifyOrderDetail2 extends Migration
+class CreateDiscountTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class ModifyOrderDetail2 extends Migration
      */
     public function up()
     {
-        Schema::table('order_details', function (Blueprint $table) {
-            $table->double('subtotal')->after('price');
+        Schema::create('discount', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('product_id');
+            $table->float('amount');
+            $table->boolean('status');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class ModifyOrderDetail2 extends Migration
      */
     public function down()
     {
-        Schema::table('order_details', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('discount');
     }
 }
