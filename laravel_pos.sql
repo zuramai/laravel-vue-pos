@@ -310,7 +310,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `username`, `phone`, `address`, `level`, `image_name`) VALUES
 (2, 'Kasir', 'kasir@gmail.com', NULL, '$2y$12$rXJ9fdHfWTSfJaB/2OhNleudU9HvQgxDC364IsA06wsfbR0FeNIRC', NULL, '2019-11-22 20:29:12', '2019-11-22 20:29:12', 'kasir', '07123123', 'Kasir12323', 'Kasir', '1__-vJQqeCmpw-kghDFX8yJw.png'),
-(3, 'admin', 'admin@gmail.com', NULL, '$2y$12$MGeNO.hLqK2YGC4LMy2X8OuxUL44B0LCwySbPf9j89ewZk5F7I31e', NULL, '2020-02-03 17:00:00', NULL, 'admin', '512412', '1251254123412', 'Admin', '');
+(3, 'admin', 'admin@gmail.com', NULL, '$2y$12$MGeNO.hLqK2YGC4LMy2X8OuxUL44B0LCwySbPf9j89ewZk5F7I31e', NULL, '2020-02-03 17:00:00', NULL, 'admin', '512412', '1251254123412', 'Admin', '1__-vJQqeCmpw-kghDFX8yJw.png');
 
 --
 -- Indexes for dumped tables

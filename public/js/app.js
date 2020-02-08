@@ -69532,9 +69532,25 @@ var render = function() {
                       return _c("tr", { key: data.id }, [
                         _c("td", [_vm._v(_vm._s(data.id))]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(data.cashier.name))]),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              data.cashier == null
+                                ? "Deleted"
+                                : data.cashier.name
+                            )
+                          )
+                        ]),
                         _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(data.customer.name))]),
+                        _c("td", [
+                          _vm._v(
+                            _vm._s(
+                              data.customer == null
+                                ? "Deleted"
+                                : data.customer.name
+                            )
+                          )
+                        ]),
                         _vm._v(" "),
                         _c(
                           "td",
