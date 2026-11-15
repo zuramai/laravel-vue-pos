@@ -25,9 +25,9 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $r)
+    public function index(Request $request)
     {
-        return new CustomerCollection(Customer::search($r->search)->orderBy('id','DESC')->paginate(self::PER_PAGE));
+        return new CustomerCollection(Customer::search($request->search)->orderBy('id','DESC')->paginate(self::PER_PAGE));
     }
 
     /**

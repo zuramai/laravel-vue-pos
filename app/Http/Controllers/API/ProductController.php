@@ -76,8 +76,8 @@ class ProductController extends Controller
         return response()->json(['status'=>true]);
     }
 
-    public function search(Request $r) {
-        $search = $r->get('search');
+    public function search(Request $request) {
+        $search = $request->get('search');
 
         $products = Product::with('discount')->where('name','LIKE',"%$search%")->orWhere('code','LIKE',"%$search%")->orderBy('name','ASC')->limit(5)->get();
 

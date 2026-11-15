@@ -26,9 +26,9 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $r)
+    public function index(Request $request)
     {
-        return new UserCollection(User::search($r->search)->orderBy('id','desc')->paginate(self::PER_PAGE));
+        return new UserCollection(User::search($request->search)->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
     /**

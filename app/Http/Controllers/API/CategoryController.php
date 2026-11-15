@@ -24,9 +24,9 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $r)
+    public function index(Request $request)
     {
-        return new CategoryCollection(Category::search($r->get('search'))->orderBy('id','desc')->paginate(self::PER_PAGE));
+        return new CategoryCollection(Category::search($request->get('search'))->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
     /**

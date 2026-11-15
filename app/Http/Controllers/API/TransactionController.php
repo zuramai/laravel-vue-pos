@@ -16,16 +16,16 @@ class TransactionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $r)
+    public function index()
     {
     }
 
-    public function newTransaction(Request $r, TransactionService $transactions) {
-        list($order, $totalPrice) = $transactions->checkout($r->all(), Auth::user()->id);
+    public function newTransaction(Request $request, TransactionService $transactions) {
+        list($order, $totalPrice) = $transactions->checkout($request->all(), Auth::user()->id);
 
         return response()->json([
             'status' => true,
-            'message' => $transactions->successMessage($order, $totalPrice, $r->bayar, $r->kembalian),
+            'message' => $transactions->successMessage($order, $totalPrice, $request->bayar, $request->kembalian),
         ]);
     }
 
@@ -39,7 +39,7 @@ class TransactionController extends Controller
         return new TransactionCollection(Transaction::with(['details.product','cashier','customer'])->where('id','LIKE',"%$search%")->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
-    public function invoice(Request $r, $invoice_id) {
+    public function invoice($invoice_id) {
         return Transaction::with(['details.product','customer','payment_method'])->where('invoice',$invoice_id)->orderBy('id','desc')->first();
     }
 

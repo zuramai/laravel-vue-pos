@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\API;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\DashboardService;
 use App\Services\ReportService;
@@ -27,15 +26,15 @@ class HomeController extends Controller
         return response()->json($this->reports->summary());
     }
 
-    public function pdf_transaction(Request $r) {
+    public function pdf_transaction() {
         return $this->pdfSaved($this->reports->saveTransactionsPdf());
     }
 
-    public function pdf_users(Request $r) {
+    public function pdf_users() {
         return $this->pdfSaved($this->reports->saveUsersPdf());
     }
 
-    public function pdf_products(Request $r) {
+    public function pdf_products() {
         return $this->pdfSaved($this->reports->saveProductsPdf());
     }
 
