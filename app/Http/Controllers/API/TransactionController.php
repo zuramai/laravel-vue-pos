@@ -31,12 +31,12 @@ class TransactionController extends Controller
 
     public function history(Request $request) {
         $search = $request->get('search');
-        return new TransactionCollection(Transaction::with(['details.product','customer'])->where('user_id',Auth::user()->id)->where('id','LIKE',"%$search%")->orderBy('id','desc')->paginate(10));
+        return new TransactionCollection(Transaction::with(['details.product','customer'])->where('user_id',Auth::user()->id)->where('id','LIKE',"%$search%")->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
     public function allHistory(Request $request) {
         $search = $request->get('search');
-        return new TransactionCollection(Transaction::with(['details.product','cashier','customer'])->where('id','LIKE',"%$search%")->orderBy('id','desc')->paginate(10));
+        return new TransactionCollection(Transaction::with(['details.product','cashier','customer'])->where('id','LIKE',"%$search%")->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
     public function invoice(Request $r, $invoice_id) {

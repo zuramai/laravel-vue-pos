@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        return new ProductCollection(Product::where('name', 'LIKE', "%$request->search%")->where('code', 'LIKE', "%$request->search%")->orderBy('id','desc')->paginate(10));
+        return new ProductCollection(Product::searchNameAndCode($request->search)->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
     /**

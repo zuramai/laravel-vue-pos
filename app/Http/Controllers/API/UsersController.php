@@ -28,7 +28,7 @@ class UsersController extends Controller
      */
     public function index(Request $r)
     {
-        return new UserCollection(User::where('name','LIKE',"%".$r->search."%")->orderBy('id','desc')->paginate(10));
+        return new UserCollection(User::search($r->search)->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
     /**

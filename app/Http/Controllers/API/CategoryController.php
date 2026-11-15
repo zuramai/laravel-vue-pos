@@ -26,7 +26,7 @@ class CategoryController extends Controller
      */
     public function index(Request $r)
     {
-        return new CategoryCollection(Category::where('name','LIKE',"%".$r->get('search')."%")->orderBy('id','desc')->paginate(10));
+        return new CategoryCollection(Category::search($r->get('search'))->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
     /**

@@ -16,7 +16,7 @@ class DiscountController extends Controller
      */
     public function index()
     {
-        $discounts = Discount::with('product')->orderBy('id','desc')->paginate(10);
+        $discounts = Discount::with('product')->orderBy('id','desc')->paginate(self::PER_PAGE);
         return response()->json($discounts);
     }
 

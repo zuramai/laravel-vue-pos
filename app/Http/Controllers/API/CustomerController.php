@@ -27,7 +27,7 @@ class CustomerController extends Controller
      */
     public function index(Request $r)
     {
-        return new CustomerCollection(Customer::where('name','LIKE',"%$r->search%")->orderBy('id','DESC')->paginate(10));
+        return new CustomerCollection(Customer::search($r->search)->orderBy('id','DESC')->paginate(self::PER_PAGE));
     }
 
     /**
