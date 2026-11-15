@@ -49,16 +49,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'photo' => ['required', 'image'],
-            'username' => ['required','min:6', 'unique:users'],
-            'level' => ['required','in:Admin,Kasir'],
-            'address' => 'required',
-            'phone' => 'required|numeric',
-        ]);
+        $validator = Validator::make($request->all(), $this->rules());
 
         if($validator->fails()) {
             return response($validator->errors(), 400);
@@ -110,16 +101,8 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8'],
-            'photo' => ['required', 'image'],
-            'username' => ['required','min:6', 'unique:users'],
-            'level' => ['required','in:Admin,Kasir'],
-            'address' => 'required',
-            'phone' => 'required|numeric',
-        ]);
+        // D-05 (kept): the validator is made but never checked, the password is saved without hash.
+        Validator::make($request->all(), $this->rules());
         $image_name = $this->images->store($request->file('photo'), self::IMAGE_FOLDER);
         User::find($id)->update([
             'name' => $request->name,
@@ -145,5 +128,22 @@ class UsersController extends Controller
     {
         User::find($id)->delete();
         return response(['status'=>true]);
+    }
+
+    /**
+     * Validation rules of a user form. store() and update() use the same rules.
+     */
+    private function rules()
+    {
+        return [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+            'photo' => ['required', 'image'],
+            'username' => ['required','min:6', 'unique:users'],
+            'level' => ['required','in:Admin,Kasir'],
+            'address' => 'required',
+            'phone' => 'required|numeric',
+        ];
     }
 }
