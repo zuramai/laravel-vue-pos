@@ -1,0 +1,314 @@
+{
+    "status": 200,
+    "body": {
+        "data": [
+            {
+                "id": 8,
+                "invoice": "91dbcec9-24ff-4854-a3a7-bb505da87ac2",
+                "user_id": 1,
+                "total": 15000,
+                "total_ppn": 0,
+                "bayar": 6000,
+                "kembalian": 0,
+                "payment_method_id": 1,
+                "customer_id": 2,
+                "created_at": "2019-11-24 00:27:17",
+                "updated_at": "2019-11-24 00:27:17",
+                "details": [
+                    {
+                        "id": 5,
+                        "order_id": 8,
+                        "product_id": 2,
+                        "quantity": 10,
+                        "price": 1500,
+                        "subtotal": 15000,
+                        "ppn": 1000,
+                        "created_at": "2019-11-24 00:27:17",
+                        "updated_at": "2019-11-24 00:27:17",
+                        "product": {
+                            "id": 2,
+                            "uuid": "285c1ba8-6bda-4dd8-aed1-e27f5acccd72",
+                            "slug": "chocolatos",
+                            "name": "Chocolatos",
+                            "description": "Chocolatos adalah lorem ipsum",
+                            "code": "CHO1",
+                            "price": 500,
+                            "ppn": 20,
+                            "category_id": 1,
+                            "stock": 155,
+                            "image_name": "23a5ae9957741bb83da2e4201c8b44ce.jpeg",
+                            "created_at": "2019-11-24 00:26:53",
+                            "updated_at": "2020-02-08 08:01:21",
+                            "deleted_at": null
+                        }
+                    }
+                ],
+                "cashier": null,
+                "customer": {
+                    "id": 2,
+                    "name": "Abdurrahman",
+                    "email": "cust@gmail.com",
+                    "phone": "0813213215",
+                    "image_name": "WhatsApp Image 2019-02-03 at 4.33.26 PM.jpeg",
+                    "role": "Walk-in",
+                    "alamat": "Jl. SMEA 6",
+                    "kota": "Jakarta Timur",
+                    "provinsi": "Jakarta",
+                    "created_at": "2019-11-23 06:57:12",
+                    "updated_at": "2019-11-23 06:57:12"
+                }
+            },
+            {
+                "id": 7,
+                "invoice": "b0291727-9239-4b19-b26b-1382c612e25d",
+                "user_id": 1,
+                "total": 210000,
+                "total_ppn": 0,
+                "bayar": 210000,
+                "kembalian": 0,
+                "payment_method_id": 1,
+                "customer_id": 2,
+                "created_at": "2019-10-24 00:22:28",
+                "updated_at": "2019-11-24 00:22:28",
+                "details": [
+                    {
+                        "id": 4,
+                        "order_id": 7,
+                        "product_id": 1,
+                        "quantity": 2,
+                        "price": 105000,
+                        "subtotal": 210000,
+                        "ppn": 5000,
+                        "created_at": "2019-10-24 00:22:28",
+                        "updated_at": "2019-11-24 00:22:28",
+                        "product": {
+                            "id": 1,
+                            "uuid": "84fc52fe-28f4-4a8b-becb-d5590d3be82a",
+                            "slug": "testppn",
+                            "name": "TestPPN",
+                            "description": "TestPPN",
+                            "code": "TestPPN",
+                            "price": 100000,
+                            "ppn": 5,
+                            "category_id": 1,
+                            "stock": 2,
+                            "image_name": "Tabel Priodik HD.jpg",
+                            "created_at": "2019-11-23 04:45:25",
+                            "updated_at": "2019-11-23 04:45:25",
+                            "deleted_at": null
+                        }
+                    }
+                ],
+                "cashier": null,
+                "customer": {
+                    "id": 2,
+                    "name": "Abdurrahman",
+                    "email": "cust@gmail.com",
+                    "phone": "0813213215",
+                    "image_name": "WhatsApp Image 2019-02-03 at 4.33.26 PM.jpeg",
+                    "role": "Walk-in",
+                    "alamat": "Jl. SMEA 6",
+                    "kota": "Jakarta Timur",
+                    "provinsi": "Jakarta",
+                    "created_at": "2019-11-23 06:57:12",
+                    "updated_at": "2019-11-23 06:57:12"
+                }
+            },
+            {
+                "id": 6,
+                "invoice": "6a383b64-e4ca-4459-b268-196a3a356634",
+                "user_id": 1,
+                "total": 105000,
+                "total_ppn": 0,
+                "bayar": 105000,
+                "kembalian": 0,
+                "payment_method_id": 1,
+                "customer_id": 1,
+                "created_at": "2019-11-23 08:05:49",
+                "updated_at": "2019-11-23 08:05:49",
+                "details": [
+                    {
+                        "id": 3,
+                        "order_id": 6,
+                        "product_id": 1,
+                        "quantity": 1,
+                        "price": 105000,
+                        "subtotal": 105000,
+                        "ppn": 5000,
+                        "created_at": "2019-11-23 08:05:49",
+                        "updated_at": "2019-11-23 08:05:49",
+                        "product": {
+                            "id": 1,
+                            "uuid": "84fc52fe-28f4-4a8b-becb-d5590d3be82a",
+                            "slug": "testppn",
+                            "name": "TestPPN",
+                            "description": "TestPPN",
+                            "code": "TestPPN",
+                            "price": 100000,
+                            "ppn": 5,
+                            "category_id": 1,
+                            "stock": 2,
+                            "image_name": "Tabel Priodik HD.jpg",
+                            "created_at": "2019-11-23 04:45:25",
+                            "updated_at": "2019-11-23 04:45:25",
+                            "deleted_at": null
+                        }
+                    }
+                ],
+                "cashier": null,
+                "customer": {
+                    "id": 1,
+                    "name": "Walk-in Customer",
+                    "email": "cust@gmail.com",
+                    "phone": "0813213215",
+                    "image_name": "LOGO TECHNOBRAIN FIX.png",
+                    "role": "Walk-in",
+                    "alamat": "Jl. SMEA 6",
+                    "kota": "Jakarta Timur",
+                    "provinsi": "Jakarta",
+                    "created_at": "2019-11-23 06:56:02",
+                    "updated_at": "2019-11-23 06:56:02"
+                }
+            },
+            {
+                "id": 2,
+                "invoice": "a2bec555-b0a6-4a16-8619-7915c563bedb",
+                "user_id": 2,
+                "total": 100000,
+                "total_ppn": 0,
+                "bayar": 200000,
+                "kembalian": 95000,
+                "payment_method_id": 1,
+                "customer_id": 1,
+                "created_at": "2019-11-23 07:42:10",
+                "updated_at": "2019-11-23 07:42:10",
+                "details": [
+                    {
+                        "id": 2,
+                        "order_id": 2,
+                        "product_id": 1,
+                        "quantity": 1,
+                        "price": 100000,
+                        "subtotal": 100000,
+                        "ppn": 0,
+                        "created_at": "2019-11-23 07:42:10",
+                        "updated_at": "2019-11-23 07:42:10",
+                        "product": {
+                            "id": 1,
+                            "uuid": "84fc52fe-28f4-4a8b-becb-d5590d3be82a",
+                            "slug": "testppn",
+                            "name": "TestPPN",
+                            "description": "TestPPN",
+                            "code": "TestPPN",
+                            "price": 100000,
+                            "ppn": 5,
+                            "category_id": 1,
+                            "stock": 2,
+                            "image_name": "Tabel Priodik HD.jpg",
+                            "created_at": "2019-11-23 04:45:25",
+                            "updated_at": "2019-11-23 04:45:25",
+                            "deleted_at": null
+                        }
+                    }
+                ],
+                "cashier": {
+                    "id": 2,
+                    "name": "Kasir",
+                    "email": "kasir@gmail.com",
+                    "email_verified_at": null,
+                    "created_at": "2019-11-23 03:29:12",
+                    "updated_at": "2019-11-23 03:29:12",
+                    "username": "kasir",
+                    "phone": "07123123",
+                    "address": "Kasir12323",
+                    "level": "Kasir",
+                    "image_name": "1__-vJQqeCmpw-kghDFX8yJw.png"
+                },
+                "customer": {
+                    "id": 1,
+                    "name": "Walk-in Customer",
+                    "email": "cust@gmail.com",
+                    "phone": "0813213215",
+                    "image_name": "LOGO TECHNOBRAIN FIX.png",
+                    "role": "Walk-in",
+                    "alamat": "Jl. SMEA 6",
+                    "kota": "Jakarta Timur",
+                    "provinsi": "Jakarta",
+                    "created_at": "2019-11-23 06:56:02",
+                    "updated_at": "2019-11-23 06:56:02"
+                }
+            },
+            {
+                "id": 1,
+                "invoice": "f6fd4f20-1da4-4ae1-8ef6-60ec13fa2532",
+                "user_id": 1,
+                "total": 100000,
+                "total_ppn": 0,
+                "bayar": 150000,
+                "kembalian": 45000,
+                "payment_method_id": 1,
+                "customer_id": 2,
+                "created_at": "2019-11-23 07:07:59",
+                "updated_at": "2019-11-23 07:07:59",
+                "details": [
+                    {
+                        "id": 1,
+                        "order_id": 1,
+                        "product_id": 1,
+                        "quantity": 1,
+                        "price": 100000,
+                        "subtotal": 100000,
+                        "ppn": 0,
+                        "created_at": "2019-11-23 07:07:59",
+                        "updated_at": "2019-11-23 07:07:59",
+                        "product": {
+                            "id": 1,
+                            "uuid": "84fc52fe-28f4-4a8b-becb-d5590d3be82a",
+                            "slug": "testppn",
+                            "name": "TestPPN",
+                            "description": "TestPPN",
+                            "code": "TestPPN",
+                            "price": 100000,
+                            "ppn": 5,
+                            "category_id": 1,
+                            "stock": 2,
+                            "image_name": "Tabel Priodik HD.jpg",
+                            "created_at": "2019-11-23 04:45:25",
+                            "updated_at": "2019-11-23 04:45:25",
+                            "deleted_at": null
+                        }
+                    }
+                ],
+                "cashier": null,
+                "customer": {
+                    "id": 2,
+                    "name": "Abdurrahman",
+                    "email": "cust@gmail.com",
+                    "phone": "0813213215",
+                    "image_name": "WhatsApp Image 2019-02-03 at 4.33.26 PM.jpeg",
+                    "role": "Walk-in",
+                    "alamat": "Jl. SMEA 6",
+                    "kota": "Jakarta Timur",
+                    "provinsi": "Jakarta",
+                    "created_at": "2019-11-23 06:57:12",
+                    "updated_at": "2019-11-23 06:57:12"
+                }
+            }
+        ],
+        "links": {
+            "first": "http://localhost/api/v1/transaction/history/all?page=1",
+            "last": "http://localhost/api/v1/transaction/history/all?page=2",
+            "prev": "http://localhost/api/v1/transaction/history/all?page=1",
+            "next": null
+        },
+        "meta": {
+            "current_page": 2,
+            "from": 11,
+            "last_page": 2,
+            "path": "http://localhost/api/v1/transaction/history/all",
+            "per_page": 10,
+            "to": 15,
+            "total": 15
+        }
+    }
+}

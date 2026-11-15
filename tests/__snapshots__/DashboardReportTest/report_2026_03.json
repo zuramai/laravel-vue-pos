@@ -1,0 +1,17 @@
+{
+    "status": 200,
+    "body": {
+        "total": {
+            "transaction": 15,
+            "transaction_thismo": 0,
+            "category": 1,
+            "product": 2,
+            "product_sold": 17,
+            "product_sold_thismo": 0,
+            "customer": 3
+        },
+        "transaction": {
+            "chart": []
+        }
+    }
+}

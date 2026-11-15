@@ -1,0 +1,14 @@
+{
+    "status": 200,
+    "body": {
+        "transaksi_bulan_ini": 1,
+        "transaksi_bulan_lalu": 0,
+        "peningkatan_transaksi": "+100%",
+        "average_price": 52800,
+        "product_sold": "82",
+        "product_sold_lastmo": null,
+        "pendapatan_bulan_ini": 1200,
+        "pendapatan_bulan_lalu": null,
+        "peningkatan_pendapatan": "+120000%"
+    }
+}

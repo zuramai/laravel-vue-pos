@@ -1,0 +1,16 @@
+{
+    "status": 200,
+    "body": {
+        "data": [
+            {
+                "id": 1,
+                "name": "Uang Cash",
+                "description": "Uang Cash",
+                "is_active": 1,
+                "created_at": null,
+                "updated_at": null,
+                "deleted_at": null
+            }
+        ]
+    }
+}

@@ -1,0 +1,94 @@
+{
+    "status": 200,
+    "body": {
+        "id": 9,
+        "invoice": "1c079ebb-0185-4b80-ba72-30a8337d8382",
+        "user_id": 1,
+        "total": 106400,
+        "total_ppn": 5200,
+        "bayar": 200000,
+        "kembalian": 93800,
+        "payment_method_id": 1,
+        "customer_id": 1,
+        "created_at": "2019-11-24 01:35:38",
+        "updated_at": "2019-11-24 01:35:38",
+        "details": [
+            {
+                "id": 6,
+                "order_id": 9,
+                "product_id": 1,
+                "quantity": 1,
+                "price": 105000,
+                "subtotal": 105000,
+                "ppn": 5000,
+                "created_at": "2019-11-24 01:35:38",
+                "updated_at": "2019-11-24 01:35:38",
+                "product": {
+                    "id": 1,
+                    "uuid": "84fc52fe-28f4-4a8b-becb-d5590d3be82a",
+                    "slug": "testppn",
+                    "name": "TestPPN",
+                    "description": "TestPPN",
+                    "code": "TestPPN",
+                    "price": 100000,
+                    "ppn": 5,
+                    "category_id": 1,
+                    "stock": 2,
+                    "image_name": "Tabel Priodik HD.jpg",
+                    "created_at": "2019-11-23 04:45:25",
+                    "updated_at": "2019-11-23 04:45:25",
+                    "deleted_at": null
+                }
+            },
+            {
+                "id": 7,
+                "order_id": 9,
+                "product_id": 2,
+                "quantity": 2,
+                "price": 700,
+                "subtotal": 1400,
+                "ppn": 200,
+                "created_at": "2019-11-24 01:35:38",
+                "updated_at": "2019-11-24 01:35:38",
+                "product": {
+                    "id": 2,
+                    "uuid": "285c1ba8-6bda-4dd8-aed1-e27f5acccd72",
+                    "slug": "chocolatos",
+                    "name": "Chocolatos",
+                    "description": "Chocolatos adalah lorem ipsum",
+                    "code": "CHO1",
+                    "price": 500,
+                    "ppn": 20,
+                    "category_id": 1,
+                    "stock": 155,
+                    "image_name": "23a5ae9957741bb83da2e4201c8b44ce.jpeg",
+                    "created_at": "2019-11-24 00:26:53",
+                    "updated_at": "2020-02-08 08:01:21",
+                    "deleted_at": null
+                }
+            }
+        ],
+        "customer": {
+            "id": 1,
+            "name": "Walk-in Customer",
+            "email": "cust@gmail.com",
+            "phone": "0813213215",
+            "image_name": "LOGO TECHNOBRAIN FIX.png",
+            "role": "Walk-in",
+            "alamat": "Jl. SMEA 6",
+            "kota": "Jakarta Timur",
+            "provinsi": "Jakarta",
+            "created_at": "2019-11-23 06:56:02",
+            "updated_at": "2019-11-23 06:56:02"
+        },
+        "payment_method": {
+            "id": 1,
+            "name": "Uang Cash",
+            "description": "Uang Cash",
+            "is_active": 1,
+            "created_at": null,
+            "updated_at": null,
+            "deleted_at": null
+        }
+    }
+}

@@ -1,0 +1,13 @@
+{
+    "status": 200,
+    "body": {
+        "id": 1,
+        "name": "Makanan Ringan",
+        "image_name": "6446d4c4-852e-42ec-b814-bcaaa1d0c5b0.jpeg",
+        "description": "Xixixixixixi",
+        "slug": "makanan-ringan",
+        "created_at": "2019-11-23 03:54:05",
+        "updated_at": "2019-11-24 04:16:11",
+        "deleted_at": null
+    }
+}

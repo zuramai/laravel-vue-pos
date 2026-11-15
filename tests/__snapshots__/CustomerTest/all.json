@@ -1,0 +1,46 @@
+{
+    "status": 200,
+    "body": {
+        "data": [
+            {
+                "id": 2,
+                "name": "Abdurrahman",
+                "email": "cust@gmail.com",
+                "phone": "0813213215",
+                "image_name": "WhatsApp Image 2019-02-03 at 4.33.26 PM.jpeg",
+                "role": "Walk-in",
+                "alamat": "Jl. SMEA 6",
+                "kota": "Jakarta Timur",
+                "provinsi": "Jakarta",
+                "created_at": "2019-11-23 06:57:12",
+                "updated_at": "2019-11-23 06:57:12"
+            },
+            {
+                "id": 3,
+                "name": "Abid Fakhri",
+                "email": "abidfakhri007@gmail.com",
+                "phone": "08124123",
+                "image_name": "WhatsApp Image 2019-08-18 at 18.51.37 (1).jpeg",
+                "role": "Retail",
+                "alamat": "Jl Provinsi",
+                "kota": "DKI Jakarta",
+                "provinsi": "aceh",
+                "created_at": "2019-11-24 01:23:41",
+                "updated_at": "2019-11-24 01:23:41"
+            },
+            {
+                "id": 1,
+                "name": "Walk-in Customer",
+                "email": "cust@gmail.com",
+                "phone": "0813213215",
+                "image_name": "LOGO TECHNOBRAIN FIX.png",
+                "role": "Walk-in",
+                "alamat": "Jl. SMEA 6",
+                "kota": "Jakarta Timur",
+                "provinsi": "Jakarta",
+                "created_at": "2019-11-23 06:56:02",
+                "updated_at": "2019-11-23 06:56:02"
+            }
+        ]
+    }
+}

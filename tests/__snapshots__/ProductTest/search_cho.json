@@ -1,0 +1,29 @@
+{
+    "status": 200,
+    "body": [
+        {
+            "id": 2,
+            "uuid": "285c1ba8-6bda-4dd8-aed1-e27f5acccd72",
+            "slug": "chocolatos",
+            "name": "Chocolatos",
+            "description": "Chocolatos adalah lorem ipsum",
+            "code": "CHO1",
+            "price": 500,
+            "ppn": 20,
+            "category_id": 1,
+            "stock": 155,
+            "image_name": "23a5ae9957741bb83da2e4201c8b44ce.jpeg",
+            "created_at": "2019-11-24 00:26:53",
+            "updated_at": "2020-02-08 08:01:21",
+            "deleted_at": null,
+            "discount": {
+                "id": 4,
+                "product_id": 2,
+                "amount": 20,
+                "status": 1,
+                "created_at": "2019-11-24 04:19:23",
+                "updated_at": "2019-11-24 04:19:23"
+            }
+        }
+    ]
+}

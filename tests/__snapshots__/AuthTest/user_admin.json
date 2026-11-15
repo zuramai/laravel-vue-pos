@@ -1,0 +1,19 @@
+{
+    "status": 200,
+    "body": {
+        "status": "success",
+        "data": {
+            "id": 3,
+            "name": "admin",
+            "email": "admin@gmail.com",
+            "email_verified_at": null,
+            "created_at": "2020-02-04 00:00:00",
+            "updated_at": null,
+            "username": "admin",
+            "phone": "512412",
+            "address": "1251254123412",
+            "level": "Admin",
+            "image_name": "1__-vJQqeCmpw-kghDFX8yJw.png"
+        }
+    }
+}

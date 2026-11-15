@@ -1,0 +1,21 @@
+{
+    "status": 200,
+    "body": {
+        "data": [],
+        "links": {
+            "first": "http://localhost/api/v1/category?page=1",
+            "last": "http://localhost/api/v1/category?page=1",
+            "prev": "http://localhost/api/v1/category?page=1",
+            "next": null
+        },
+        "meta": {
+            "current_page": 2,
+            "from": null,
+            "last_page": 1,
+            "path": "http://localhost/api/v1/category",
+            "per_page": 10,
+            "to": null,
+            "total": 1
+        }
+    }
+}

@@ -1,0 +1,54 @@
+{
+    "status": 200,
+    "body": {
+        "data": [
+            {
+                "id": 2,
+                "uuid": "285c1ba8-6bda-4dd8-aed1-e27f5acccd72",
+                "slug": "chocolatos",
+                "name": "Chocolatos",
+                "description": "Chocolatos adalah lorem ipsum",
+                "code": "CHO1",
+                "price": 500,
+                "ppn": 20,
+                "category_id": 1,
+                "stock": 155,
+                "image_name": "23a5ae9957741bb83da2e4201c8b44ce.jpeg",
+                "created_at": "2019-11-24 00:26:53",
+                "updated_at": "2020-02-08 08:01:21",
+                "deleted_at": null
+            },
+            {
+                "id": 1,
+                "uuid": "84fc52fe-28f4-4a8b-becb-d5590d3be82a",
+                "slug": "testppn",
+                "name": "TestPPN",
+                "description": "TestPPN",
+                "code": "TestPPN",
+                "price": 100000,
+                "ppn": 5,
+                "category_id": 1,
+                "stock": 2,
+                "image_name": "Tabel Priodik HD.jpg",
+                "created_at": "2019-11-23 04:45:25",
+                "updated_at": "2019-11-23 04:45:25",
+                "deleted_at": null
+            }
+        ],
+        "links": {
+            "first": "http://localhost/api/v1/product?page=1",
+            "last": "http://localhost/api/v1/product?page=1",
+            "prev": null,
+            "next": null
+        },
+        "meta": {
+            "current_page": 1,
+            "from": 1,
+            "last_page": 1,
+            "path": "http://localhost/api/v1/product",
+            "per_page": 10,
+            "to": 2,
+            "total": 2
+        }
+    }
+}

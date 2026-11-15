@@ -1,0 +1,11 @@
+{
+    "status": 201,
+    "body": {
+        "name": "Minuman Dingin",
+        "description": "Minuman botol",
+        "slug": "minuman-dingin",
+        "image_name": "chartest_cat.jpg",
+        "updated_at": "<now>",
+        "created_at": "<now>"
+    }
+}

@@ -1,0 +1,14 @@
+{
+    "status": 201,
+    "body": {
+        "name": "Kasir Dua",
+        "email": "kasir2@gmail.com",
+        "username": "kasirdua",
+        "phone": "0812345",
+        "address": "Jl. Merdeka",
+        "level": "Kasir",
+        "image_name": "chartest_user.jpg",
+        "updated_at": "<now>",
+        "created_at": "<now>"
+    }
+}

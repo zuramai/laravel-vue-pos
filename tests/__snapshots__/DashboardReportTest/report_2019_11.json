@@ -1,0 +1,30 @@
+{
+    "status": 200,
+    "body": {
+        "total": {
+            "transaction": 15,
+            "transaction_thismo": 13,
+            "category": 1,
+            "product": 2,
+            "product_sold": 17,
+            "product_sold_thismo": 15,
+            "customer": 3
+        },
+        "transaction": {
+            "chart": [
+                {
+                    "a": 3,
+                    "y": "2019-11-23"
+                },
+                {
+                    "a": 10,
+                    "y": "2019-11-24"
+                },
+                {
+                    "a": 1,
+                    "y": "2020-02-08"
+                }
+            ]
+        }
+    }
+}

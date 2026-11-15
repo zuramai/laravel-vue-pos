@@ -1,0 +1,7 @@
+{
+    "status": 200,
+    "body": {
+        "status": true,
+        "message": "<b>Transaksi Sukses!</b> <br>Total Harga: <b>Rp106,200</b><br>Jumlah Bayar: <b>Rp 200,000</b><br>Kembalian: <b>Rp 92,800</b><br>Invoice: <a href='http://localhost/transaksi/invoice/<uuid>'>Klik Disini</a>"
+    }
+}

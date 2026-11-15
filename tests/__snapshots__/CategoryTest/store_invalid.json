@@ -1,0 +1,14 @@
+{
+    "status": 422,
+    "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+            "name": [
+                "name tidak boleh kosong."
+            ],
+            "description": [
+                "description tidak boleh kosong."
+            ]
+        }
+    }
+}

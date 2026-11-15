@@ -1,0 +1,26 @@
+{
+    "status": 422,
+    "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+            "name": [
+                "name tidak boleh kosong."
+            ],
+            "code": [
+                "code tidak boleh kosong."
+            ],
+            "stock": [
+                "stock tidak boleh kosong."
+            ],
+            "category": [
+                "The selected category is invalid."
+            ],
+            "description": [
+                "description tidak boleh kosong."
+            ],
+            "price": [
+                "The price must be an integer."
+            ]
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "status": 422,
+    "body": {
+        "message": "The given data was invalid.",
+        "errors": {
+            "code": [
+                "code sudah terdaftar."
+            ]
+        }
+    }
+}

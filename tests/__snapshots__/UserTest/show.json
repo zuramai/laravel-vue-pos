@@ -1,0 +1,16 @@
+{
+    "status": 200,
+    "body": {
+        "id": 2,
+        "name": "Kasir",
+        "email": "kasir@gmail.com",
+        "email_verified_at": null,
+        "created_at": "2019-11-23 03:29:12",
+        "updated_at": "2019-11-23 03:29:12",
+        "username": "kasir",
+        "phone": "07123123",
+        "address": "Kasir12323",
+        "level": "Kasir",
+        "image_name": "1__-vJQqeCmpw-kghDFX8yJw.png"
+    }
+}

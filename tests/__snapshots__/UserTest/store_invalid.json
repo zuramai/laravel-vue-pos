@@ -1,0 +1,29 @@
+{
+    "status": 400,
+    "body": {
+        "name": [
+            "name tidak boleh kosong."
+        ],
+        "email": [
+            "The email must be a valid email address."
+        ],
+        "password": [
+            "The password must be at least 8 characters."
+        ],
+        "photo": [
+            "photo harus berbentuk gambar."
+        ],
+        "username": [
+            "The username must be at least 6 characters."
+        ],
+        "level": [
+            "The selected level is invalid."
+        ],
+        "address": [
+            "address tidak boleh kosong."
+        ],
+        "phone": [
+            "The phone must be a number."
+        ]
+    }
+}
