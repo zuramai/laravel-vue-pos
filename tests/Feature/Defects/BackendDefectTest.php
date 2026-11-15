@@ -306,10 +306,18 @@ class BackendDefectTest extends ApiTestCase
     /** @group defect */
     public function test_defect_D23_checkout_with_a_total_of_one_million_or_more_fails_with_500()
     {
-        // 10 x TestPPN = 1,050,000. The order row is created first, the total update fails.
+        // 10 x TestPPN = 1,050,000. The order row is saved first. The detail row
+        // (subtotal 1,050,000) fails. No database transaction: the order stays with total 0.
         $line = TransactionTest::cartLine(1, 10);
         $line['stock'] = 100;
+        $before = Transaction::count();
 
         $this->checkout([$line], ['bayar' => 999999])->assertStatus(500);
+
+        $this->assertSame($before + 1, Transaction::count());
+        $order = Transaction::with('details')->orderBy('id', 'desc')->first();
+        $this->assertEquals(0, $order->total);
+        $this->assertCount(0, $order->details);
+        $this->assertSame(2, (int) Product::find(1)->stock);
     }
 }
