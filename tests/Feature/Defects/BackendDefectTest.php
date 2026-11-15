@@ -320,4 +320,14 @@ class BackendDefectTest extends ApiTestCase
         $this->assertCount(0, $order->details);
         $this->assertSame(2, (int) Product::find(1)->stock);
     }
+
+    /** @group defect */
+    public function test_defect_D25_users_pdf_shows_an_empty_level_with_the_grey_badge()
+    {
+        // The view reads $user->Level. The column is 'level', so the value is null for every user.
+        $html = view('pdf.users', ['users' => User::orderBy('id')->get()])->render();
+
+        $this->assertSame(0, substr_count($html, 'badge-primary'));
+        $this->assertSame(User::count(), substr_count($html, '<span class="badge badge-secondary"></span>'));
+    }
 }
