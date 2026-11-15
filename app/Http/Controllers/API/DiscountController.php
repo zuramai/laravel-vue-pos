@@ -18,7 +18,6 @@ class DiscountController extends Controller
     {
         $discounts = Discount::with('product')->orderBy('id','desc')->paginate(10);
         return response()->json($discounts);
-
     }
 
     /**
@@ -53,7 +52,6 @@ class DiscountController extends Controller
         $discount->save();
 
         return response()->json(['status' => true, 'message' =>'Sukses Menambah Diskon!']);
-
     }
 
     /**

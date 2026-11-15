@@ -20,18 +20,9 @@ class TransactionController extends Controller
      */
     public function index(Request $r)
     {
-        // $search = $r->get('search');
-        // return new TransactionCollection(Transaction::whereHas('details')->with(['details' => function($query) use ($id){
-        //     $query->with('product' => function($query) use ($id){
-        //             $query->where('product.id',$id);
-        //     });
-        // }])->where('id','LIKE',"%$search%")->orderBy('id','desc')->paginate(10));
     }
 
-    
     public function newTransaction(Request $r) {
-        $customer = $r->customer || 1;
-        $payment_method = $r->payment_method || 1;
         $order = Transaction::create([
             'invoice' => Uuid::uuid4(),
             'user_id' => Auth::user()->id,
@@ -53,7 +44,7 @@ class TransactionController extends Controller
 
             $subtotal = $realPrice * $quantity;
 
-            $create = TransactionDetail::create([
+            TransactionDetail::create([
                 'order_id' => $order->id,
                 'product_id' => $data_cart['id'],
                 'quantity' => $data_cart['quantity'],
@@ -89,7 +80,6 @@ class TransactionController extends Controller
     }
 
     public function chart() {
-        $data = [];
     }
     /**
      * Show the form for creating a new resource.

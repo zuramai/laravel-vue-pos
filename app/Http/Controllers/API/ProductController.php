@@ -48,12 +48,9 @@ class ProductController extends Controller
             'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        // dd($photo->getClientOriginalName());
         $photo = $request->file('photo');
         $image_name = $photo->getClientOriginalName();
         $photo->move('images/products', $photo->getClientOriginalName());
-
-
 
         $product = new Product;
         $product->uuid = Uuid::uuid4();
@@ -65,12 +62,10 @@ class ProductController extends Controller
         $product->slug = str_slug($request->name,'-');
         $product->price = $request->price;
         $product->ppn = $request->ppn;
-        $product->stock = $request->stock;
         $product->image_name = $image_name;
         $product->save();
-        // dd($product);
-        return response()->json(['status'=>true]);
 
+        return response()->json(['status'=>true]);
     }
 
     public function search(Request $r) {
@@ -119,10 +114,7 @@ class ProductController extends Controller
             'category' => 'required|exists:categories,id',
             'price' => 'required|numeric',
             'stock' => 'required|numeric',
-            // 'photo' => 'nullable|image'
         ]);
-
-
 
         $update = Product::find($id);
         $update->name = $request->name;
@@ -140,10 +132,8 @@ class ProductController extends Controller
 
         $update->save();
 
-        
         return response()->json(['status' => true]);
     }
-
 
     /**
      * Remove the specified resource from storage.

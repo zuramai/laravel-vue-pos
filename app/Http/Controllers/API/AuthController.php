@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Validator;
 use App\User;
 use Auth;
 
@@ -26,7 +25,6 @@ class AuthController extends Controller
     }
 
     public function register(Request $request) {
-        
     }
 
     public function logout() {
@@ -39,7 +37,7 @@ class AuthController extends Controller
     }
 
     public function user(Request $r) {
-        $user = User::find(Auth::user()->id);        
+        $user = User::find(Auth::user()->id);
         return response()->json([
             'status' => 'success',
             'data' => $user
@@ -47,6 +45,5 @@ class AuthController extends Controller
     }
 
     public function refresh() {
-
     }
 }

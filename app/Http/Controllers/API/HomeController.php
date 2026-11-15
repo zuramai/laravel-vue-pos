@@ -43,7 +43,6 @@ class HomeController extends Controller
         $diff = abs($diff);
         $data['peningkatan_pendapatan'] = $more_less.(($diff/($data['pendapatan_bulan_lalu']!==0?:1))*100)."%";
 
-
         return response()->json($data);
     }
     public function report() {
@@ -54,29 +53,28 @@ class HomeController extends Controller
         $data['total']['product'] = Product::count();
         $data['total']['product_sold'] = TransactionDetail::count();
         $data['total']['product_sold_thismo'] = TransactionDetail::whereMonth('created_at', Carbon::now()->format('m'))->count();
-        $data['total']['product'] = Product::count();
         $data['total']['customer'] = Customer::count();
 
         $data['transaction']['chart'] = DB::table('orders')->select(DB::raw("COUNT(*) as a, DATE(created_at) as y"))->where('created_at', '>=', Carbon::now()->subDays(7)->format('Y-m-d'))->groupBy(DB::raw('DATE(created_at)'))->get();
-        
+
         return response()->json($data);
     }
 
     public function pdf_transaction(Request $r) {
         $transactions = Transaction::all();
-        $pdf = PDF::loadview('pdf.transaction', ['transactions' => $transactions])->save('pdf/transaction.pdf');
+        PDF::loadview('pdf.transaction', ['transactions' => $transactions])->save('pdf/transaction.pdf');
         return response()->json(['status' => true, 'filename' => 'transaction.pdf']);
     }
 
     public function pdf_users(Request $r) {
         $users = User::all();
-        $pdf = PDF::loadview('pdf.users', ['users' => $users])->save('pdf/users.pdf');
+        PDF::loadview('pdf.users', ['users' => $users])->save('pdf/users.pdf');
         return response()->json(['status' => true, 'filename' => 'users.pdf']);
     }
 
     public function pdf_products(Request $r) {
         $products = Product::all();
-        $pdf = PDF::loadview('pdf.products', ['products' => $products])->setPaper('a4', 'landscape')->save('pdf/products.pdf');
+        PDF::loadview('pdf.products', ['products' => $products])->setPaper('a4', 'landscape')->save('pdf/products.pdf');
         return response()->json(['status' => true, 'filename' => 'products.pdf']);
     }
 }

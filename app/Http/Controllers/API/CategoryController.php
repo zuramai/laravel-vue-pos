@@ -47,8 +47,6 @@ class CategoryController extends Controller
         $description = $request->description;
         $image = $request->file('photo');
 
-        // return $request->all();
-
         $imageName = $image->getClientOriginalName();
         $image->move(public_path('/images/categories'), $imageName);
 
@@ -96,7 +94,6 @@ class CategoryController extends Controller
         $name = $request->name;
         $description = $request->description;
         $slug = str_slug($name);
-
 
         if($request->hasFile('photo')) {
             $photo = $request->file('photo');

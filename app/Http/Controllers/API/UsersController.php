@@ -18,9 +18,7 @@ class UsersController extends Controller
      */
     public function index(Request $r)
     {
-        
         return new UserCollection(User::where('name','LIKE',"%".$r->search."%")->orderBy('id','desc')->paginate(10));
-        // return User::all();
     }
 
     /**
@@ -81,7 +79,6 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
-        // return $user;
         return $user;
     }
 
