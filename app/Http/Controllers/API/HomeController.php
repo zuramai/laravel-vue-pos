@@ -83,20 +83,29 @@ class HomeController extends Controller
     }
 
     public function pdf_transaction(Request $r) {
-        $transactions = Transaction::all();
-        PDF::loadview('pdf.transaction', ['transactions' => $transactions])->save('pdf/transaction.pdf');
-        return response()->json(['status' => true, 'filename' => 'transaction.pdf']);
+        return $this->renderPdf('pdf.transaction', ['transactions' => Transaction::all()], 'transaction.pdf');
     }
 
     public function pdf_users(Request $r) {
-        $users = User::all();
-        PDF::loadview('pdf.users', ['users' => $users])->save('pdf/users.pdf');
-        return response()->json(['status' => true, 'filename' => 'users.pdf']);
+        return $this->renderPdf('pdf.users', ['users' => User::all()], 'users.pdf');
     }
 
     public function pdf_products(Request $r) {
-        $products = Product::all();
-        PDF::loadview('pdf.products', ['products' => $products])->setPaper('a4', 'landscape')->save('pdf/products.pdf');
-        return response()->json(['status' => true, 'filename' => 'products.pdf']);
+        return $this->renderPdf('pdf.products', ['products' => Product::all()], 'products.pdf', ['a4', 'landscape']);
+    }
+
+    /**
+     * Saves the view as public/pdf/<file> and answers with the file name.
+     * Without $paper, dompdf uses its default paper.
+     */
+    private function renderPdf($view, array $data, $file, array $paper = null)
+    {
+        $pdf = PDF::loadview($view, $data);
+        if ($paper) {
+            $pdf->setPaper(...$paper);
+        }
+        $pdf->save('pdf/'.$file);
+
+        return response()->json(['status' => true, 'filename' => $file]);
     }
 }
