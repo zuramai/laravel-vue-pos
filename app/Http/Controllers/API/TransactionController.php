@@ -5,10 +5,8 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Transaction;
-use App\Model\TransactionDetail;
-use App\Model\Product;
 use App\Http\Resources\TransactionCollection;
-use Ramsey\Uuid\Uuid;
+use App\Services\TransactionService;
 use Auth;
 
 class TransactionController extends Controller
@@ -22,47 +20,13 @@ class TransactionController extends Controller
     {
     }
 
-    public function newTransaction(Request $r) {
-        $order = Transaction::create([
-            'invoice' => Uuid::uuid4(),
-            'user_id' => Auth::user()->id,
-            'total' => 0,
-            'total_ppn' => 0,
-            'bayar' => $r->bayar,
-            'kembalian' => $r->kembalian,
-            'payment_method_id' => $r->payment_method,
-            'customer_id' => $r->customer,
+    public function newTransaction(Request $r, TransactionService $transactions) {
+        list($order, $totalPrice) = $transactions->checkout($r->all(), Auth::user()->id);
+
+        return response()->json([
+            'status' => true,
+            'message' => $transactions->successMessage($order, $totalPrice, $r->bayar, $r->kembalian),
         ]);
-        $totalPrice = 0;
-        $totalPpn = 0;
-        foreach($r->cart as $data_cart) {
-            $quantity = $data_cart['quantity'];
-            $ppn = $data_cart['ppn'];
-            $price = $data_cart['price'];
-            $ppnnya = ($data_cart['realPrice'] * $ppn/100);
-            $realPrice = $data_cart['realPrice'] + $ppnnya;
-
-            $subtotal = $realPrice * $quantity;
-
-            TransactionDetail::create([
-                'order_id' => $order->id,
-                'product_id' => $data_cart['id'],
-                'quantity' => $data_cart['quantity'],
-                'price' => $realPrice,
-                'subtotal' => $subtotal,
-                'ppn' => $ppnnya
-            ]);
-            
-            $totalPrice += $subtotal;
-            $totalPpn += $ppnnya;
-        }
-        Transaction::find($order->id)->update(['total' => $totalPrice, 'total_ppn' => $totalPpn]);
-
-        $product = Product::find($data_cart['id']);
-        $product->stock = $product->stock - $data_cart['quantity'];
-        $product->save();
-
-        return response()->json(['status' => true, 'message' => '<b>Transaksi Sukses!</b> <br>Total Harga: <b>Rp'.number_format($totalPrice)."</b><br>Jumlah Bayar: <b>Rp ".number_format($r->bayar)."</b><br>Kembalian: <b>Rp ".number_format($r->kembalian)."</b><br>Invoice: <a href='".url("transaksi/invoice/".$order->invoice)."'>Klik Disini</a>"]);
     }
 
     public function history(Request $request) {
