@@ -6,10 +6,20 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ProductCollection;
 use App\Model\Product;
+use App\Services\ImageUploader;
 use Ramsey\Uuid\Uuid;
 
 class ProductController extends Controller
 {
+    const IMAGE_FOLDER = 'images/products';
+
+    private $images;
+
+    public function __construct(ImageUploader $images)
+    {
+        $this->images = $images;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,9 +58,7 @@ class ProductController extends Controller
             'photo.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
-        $photo = $request->file('photo');
-        $image_name = $photo->getClientOriginalName();
-        $photo->move('images/products', $photo->getClientOriginalName());
+        $image_name = $this->images->store($request->file('photo'), self::IMAGE_FOLDER);
 
         $product = new Product;
         $product->uuid = Uuid::uuid4();
@@ -124,10 +132,7 @@ class ProductController extends Controller
         $update->stock = $request->stock;
         $update->category_id = $request->category;
         if($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $image_name = $photo->getClientOriginalName();
-            $photo->move(public_path('images/products'), $image_name);
-            $update->image_name = $image_name;
+            $update->image_name = $this->images->store($request->file('photo'), self::IMAGE_FOLDER);
         }
 
         $update->save();

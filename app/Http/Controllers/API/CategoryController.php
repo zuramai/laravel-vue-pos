@@ -6,9 +6,19 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryCollection;
 use App\Model\Category;
+use App\Services\ImageUploader;
 
 class CategoryController extends Controller
 {
+    const IMAGE_FOLDER = 'images/categories';
+
+    private $images;
+
+    public function __construct(ImageUploader $images)
+    {
+        $this->images = $images;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -45,10 +55,7 @@ class CategoryController extends Controller
         $name =  $request->name;
         $slug = str_slug($name,'-');
         $description = $request->description;
-        $image = $request->file('photo');
-
-        $imageName = $image->getClientOriginalName();
-        $image->move(public_path('/images/categories'), $imageName);
+        $imageName = $this->images->store($request->file('photo'), self::IMAGE_FOLDER);
 
         $insert = Category::create([
             'name' => $name,
@@ -96,10 +103,8 @@ class CategoryController extends Controller
         $slug = str_slug($name);
 
         if($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $image_name = $photo->getClientOriginalName();
-            $photo->move(public_path('/images/categories'), $image_name);
-    
+            $image_name = $this->images->store($request->file('photo'), self::IMAGE_FOLDER);
+
             Category::find($id)->update([
                 'name' => $name,
                 'description' => $description,

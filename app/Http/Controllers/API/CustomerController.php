@@ -5,11 +5,21 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Customer;
+use App\Services\ImageUploader;
 use App\Http\Resources\CustomerCollection;
 use Validator;
 
 class CustomerController extends Controller
 {
+    const IMAGE_FOLDER = 'images/customers';
+
+    private $images;
+
+    public function __construct(ImageUploader $images)
+    {
+        $this->images = $images;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -57,10 +67,7 @@ class CustomerController extends Controller
         $customer->provinsi = $request->provinsi;
         $customer->email = $request->email;
         if($request->hasFile('photo')) {
-            $photo = $request->file('photo');
-            $image_name = $photo->getClientOriginalName();
-            $photo->move(public_path('/images/customers'), $image_name);
-            $customer->image_name = $image_name;
+            $customer->image_name = $this->images->store($request->file('photo'), self::IMAGE_FOLDER);
         }
 
         $customer->save();

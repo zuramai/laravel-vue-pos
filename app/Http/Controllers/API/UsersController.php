@@ -6,11 +6,21 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\UserCollection;
 use App\User;
+use App\Services\ImageUploader;
 use Hash;
 use Validator;
 
 class UsersController extends Controller
 {
+    const IMAGE_FOLDER = 'images/users';
+
+    private $images;
+
+    public function __construct(ImageUploader $images)
+    {
+        $this->images = $images;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -53,10 +63,7 @@ class UsersController extends Controller
         if($validator->fails()) {
             return response($validator->errors(), 400);
         }
-        $image = $request->file('photo');
-        $image_name = $image->getClientOriginalName();
-
-        $image->move(public_path('/images/users/'), $image_name);
+        $image_name = $this->images->store($request->file('photo'), self::IMAGE_FOLDER);
 
         return User::create([
             'name' => $request->name,
@@ -113,9 +120,7 @@ class UsersController extends Controller
             'address' => 'required',
             'phone' => 'required|numeric',
         ]);
-        $photo = $request->file('photo');
-        $image_name = $photo->getClientOriginalName();
-        $photo->move(public_path('/images/users/'), $image_name);
+        $image_name = $this->images->store($request->file('photo'), self::IMAGE_FOLDER);
         User::find($id)->update([
             'name' => $request->name,
             'username' => $request->username,
