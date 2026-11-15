@@ -28,7 +28,7 @@
             @foreach($users as $user)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td><span class="badge badge-{{ $user->Level == 'Admin' ? 'primary' : 'secondary' }}">{{ $user->Level }}</span></td>
+                    <td><span class="badge badge-{{ $user->Level == \App\User::LEVEL_ADMIN ? 'primary' : 'secondary' }}">{{ $user->Level }}</span></td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->phone }}</td>

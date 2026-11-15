@@ -12,6 +12,11 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable, Searchable;
 
+    /** Values of the column users.level. */
+    const LEVEL_ADMIN = 'Admin';
+    const LEVEL_KASIR = 'Kasir';
+    const LEVELS = [self::LEVEL_ADMIN, self::LEVEL_KASIR];
+
     /**
      * The attributes that are mass assignable.
      *
