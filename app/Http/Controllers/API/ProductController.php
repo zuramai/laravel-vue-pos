@@ -30,14 +30,9 @@ class ProductController extends Controller
         return new ProductCollection(Product::searchNameAndCode($request->search)->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /** Registered by Route::resource. Not used by the UI: answers 200 with an empty body. */
     public function create()
     {
-        //
     }
 
     /**
@@ -84,15 +79,9 @@ class ProductController extends Controller
         return response()->json($products);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /** Registered by Route::resource. Not used by the UI: answers 200 with an empty body. */
     public function show($id)
     {
-        //
     }
 
     /**

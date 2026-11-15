@@ -24,6 +24,7 @@ class AuthController extends Controller
         return response()->json(['error'=>'Unauthorized'], 401);
     }
 
+    /** Route auth/register. Not implemented: answers 200 with an empty body. */
     public function register(Request $request) {
     }
 
@@ -44,6 +45,7 @@ class AuthController extends Controller
         ]);
     }
 
+    /** Route auth/refresh. Not implemented: answers 200 with an empty body (D-17). */
     public function refresh() {
     }
 }

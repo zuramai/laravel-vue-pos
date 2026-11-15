@@ -31,14 +31,9 @@ class UsersController extends Controller
         return new UserCollection(User::search($request->search)->orderBy('id','desc')->paginate(self::PER_PAGE));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /** Registered by Route::resource. Not used by the UI: answers 200 with an empty body. */
     public function create()
     {
-        //
     }
 
     /**

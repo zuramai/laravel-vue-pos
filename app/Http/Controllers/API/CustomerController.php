@@ -30,14 +30,9 @@ class CustomerController extends Controller
         return new CustomerCollection(Customer::search($request->search)->orderBy('id','DESC')->paginate(self::PER_PAGE));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /** Registered by Route::resource. Not used by the UI: answers 200 with an empty body. */
     public function create()
     {
-        //
     }
 
     /**
@@ -79,48 +74,23 @@ class CustomerController extends Controller
         return new CustomerCollection(Customer::orderBy('name','asc')->get());
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /** Not implemented: answers 200 with an empty body. The customer page calls /user instead (D-04). */
     public function show($id)
     {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /** Not implemented: answers 200 with an empty body. The customer page calls /user instead (D-04). */
     public function edit($id)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /** Not implemented: answers 200 with an empty body. The customer page calls /user instead (D-04). */
     public function update(Request $request, $id)
     {
-        //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /** Not implemented: answers 200 with an empty body. The customer page calls /user instead (D-04). */
     public function destroy($id)
     {
-        //
     }
 }

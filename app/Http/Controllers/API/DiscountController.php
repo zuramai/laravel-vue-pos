@@ -20,14 +20,9 @@ class DiscountController extends Controller
         return response()->json($discounts);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    /** Registered by Route::resource. Not used by the UI: answers 200 with an empty body. */
     public function create()
     {
-        //
     }
 
     /**
@@ -54,38 +49,19 @@ class DiscountController extends Controller
         return response()->json(['status' => true, 'message' =>'Sukses Menambah Diskon!']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /** Registered by Route::resource. Not used by the UI: answers 200 with an empty body. */
     public function show($id)
     {
-        //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /** Registered by Route::resource. Not used by the UI: answers 200 with an empty body. */
     public function edit($id)
     {
-        //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    /** Registered by Route::resource. Not used by the UI: answers 200 with an empty body. */
     public function update(Request $request, $id)
     {
-        //
     }
 
     /**
