@@ -91,4 +91,24 @@ class DashboardReportTest extends ApiTestCase
             'users' => ['report/pdf_users', 'users.pdf'],
         ];
     }
+
+    /**
+     * @dataProvider pdfPaper
+     */
+    public function test_pdf_report_paper_size_and_orientation($uri, $filename, $mediaBox)
+    {
+        $this->api('GET', $uri)->assertStatus(200);
+
+        $this->assertRegExp('/\/MediaBox \[0\.000 0\.000 '.preg_quote($mediaBox, '/').'\]/', file_get_contents(public_path('pdf/'.$filename)));
+    }
+
+    public function pdfPaper()
+    {
+        // Products: A4 landscape. Transaction and users: dompdf default paper (A4 portrait).
+        return [
+            'transaction' => ['report/pdf_transaction', 'transaction.pdf', '595.280 841.890'],
+            'products' => ['report/pdf_products', 'products.pdf', '841.890 595.280'],
+            'users' => ['report/pdf_users', 'users.pdf', '595.280 841.890'],
+        ];
+    }
 }
