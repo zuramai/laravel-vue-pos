@@ -85,6 +85,40 @@ class TransactionTest extends ApiTestCase
         $this->assertStringStartsWith('<b>Transaksi Sukses!</b> <br>Total Harga: <b>Rp600</b>', $response->json('message'));
     }
 
+    public function test_new_transaction_with_a_cart_line_without_price_fails_after_saving_the_order()
+    {
+        // The checkout reads every key of a cart line, also 'price' that it does not use.
+        // A missing key is a PHP notice, Laravel turns it into a 500. The order row stays with total 0.
+        $line = static::cartLine(2, 1);
+        unset($line['price']);
+        $before = Transaction::count();
+
+        $this->apiJson('POST', 'transaction/new', [
+            'kembalian' => 400, 'bayar' => 1000, 'cart' => [$line], 'customer' => 1, 'payment_method' => 1,
+        ], 'kasir')->assertStatus(500);
+
+        $this->assertSame($before + 1, Transaction::count());
+        $order = Transaction::with('details')->orderBy('id', 'desc')->first();
+        $this->assertEquals(0, $order->total);
+        $this->assertCount(0, $order->details);
+        $this->assertSame(155, (int) Product::find(2)->stock);
+    }
+
+    public function test_new_transaction_with_an_empty_cart_fails_after_saving_an_order_with_total_zero()
+    {
+        $before = Transaction::count();
+
+        $this->apiJson('POST', 'transaction/new', [
+            'kembalian' => 0, 'bayar' => 1000, 'cart' => [], 'customer' => 1, 'payment_method' => 1,
+        ], 'kasir')->assertStatus(500);
+
+        $this->assertSame($before + 1, Transaction::count());
+        $order = Transaction::with('details')->orderBy('id', 'desc')->first();
+        $this->assertEquals(0, $order->total);
+        $this->assertEquals(0, $order->total_ppn);
+        $this->assertCount(0, $order->details);
+    }
+
     public function test_history_lists_only_orders_of_the_logged_in_cashier()
     {
         $response = $this->api('GET', 'transaction/history', [], [], 'kasir');
